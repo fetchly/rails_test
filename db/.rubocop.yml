@@ -1,0 +1,11 @@
+inherit_from:
+  - ../.rubocop.yml
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false

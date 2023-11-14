@@ -1,0 +1,17 @@
+<header class="mb-16 grid grid-cols-12">
+  <div class="flex space-y-4 items-center flex-col col-span-full justify-center xl:space-y-0 xl:space-x-4 xl:flex-row xl:justify-start xl:col-start-2">
+    <%= render Course::BadgeComponent.new(course: lesson.course, options: {show_badge: true }) %>
+
+    <div class="text-center xl:text-left">
+      <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 min-w-full" data-test-id="lesson-title-header">
+        <%= lesson.display_title %>
+      </h1>
+
+      <%= link_to path_course_url(lesson.course.path, lesson.course), class: 'no-underline' do %>
+        <h2 class="min-w-full text-lg text-gray-500 dark:text-gray-400" data-test-id="course-title-header">
+          <%= lesson.course.title %> Course
+        </h2>
+      <% end %>
+    </div>
+  </div>
+</header>
