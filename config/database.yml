@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: postgres # This is the name of the container in the docker-compose.yml file
+  username: postgres # This is the default username for the postgres image
+  password: postgres # This is the default password for the postgres image
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: app_development
+
+test:
+  <<: *default
+  database: app_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
