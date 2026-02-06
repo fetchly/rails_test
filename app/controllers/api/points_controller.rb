@@ -12,7 +12,7 @@ class Api::PointsController < ApplicationController
     if user_points.present?
       render json: user_points
     else
-      render json: { message: 'Unable to find that user' }
+      render json: { error: 'Unable to find that user' }, status: 200
     end
   end
 

@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :username, length: { in: 2..100 }
-  validates :learning_goal, length: { maximum: 1700 }
+  validates :learning_goal, length: { maximum: 1700 }, if: -> { learning_goal.to_s.length > 500 }
 
   has_many :lesson_completions, dependent: :destroy
   has_many :completed_lessons, through: :lesson_completions, source: :lesson
@@ -24,7 +24,10 @@ class User < ApplicationRecord
   end
 
   def completed?(lesson)
-    completed_lessons.pluck(:id).include?(lesson.id)
+    lesson_completions.each do |completion|
+      return true if completion.lesson_id == lesson.id
+    end
+    false
   end
 
   def latest_completed_lesson
