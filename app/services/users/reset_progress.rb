@@ -13,6 +13,7 @@ module Users
       user.transaction do
         delete_lesson_completions
         reset_default_path unless user.path.default_path?
+        send_progress_reset_notification
         @success = true
       end
 
@@ -33,6 +34,10 @@ module Users
 
     def reset_default_path
       user.update(path: Path.default_path)
+    end
+
+    def send_progress_reset_notification
+      ProgressResetNotificationJob.perform_async(user.id)
     end
   end
 end
